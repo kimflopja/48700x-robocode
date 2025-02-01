@@ -24,17 +24,22 @@ void setLift(int liftState){
   {
     case 0: // Set in startup
       lift.move_absolute(0, LIFT_SPEED); 
+      if(lift.get_position() == 0) lift.brake();
       break;
     case 1: // Wall stake
       lift.move_absolute(350, LIFT_SPEED); 
+      if(lift.get_position() == 350) lift.brake();
       break;
     case 2: // High stake
       lift.move_absolute(600, LIFT_SPEED); 
+      if(lift.get_position() == 600) lift.brake();
       break;
     case 3: // Hang level
       lift.move_absolute(700, LIFT_SPEED); 
+      if(lift.get_position() == 700) lift.brake();
       break;
   }
+  
 }
 
 /**

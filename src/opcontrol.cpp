@@ -59,8 +59,8 @@ void opcontrol() {
 		// int dir = controller_master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		// int turn = controller_master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		
-		HTHOpControl(); // HTH
-		// SkillsOpControl(); // Skills
+		//HTHOpControl(); // HTH
+		SkillsOpControl(); // Skills
 
 		clear_arm(); // Clear arm
 		latch_func(); // Latch

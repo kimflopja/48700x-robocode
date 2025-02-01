@@ -43,6 +43,7 @@ void initialize() {
 	while(inertial.is_calibrating()){
 		pros::delay(100);
 	}
+	
 
 	// Set Motor Brakes to ____
 	// Drivetrain: COAST
@@ -77,4 +78,6 @@ void initialize() {
 void competition_initialize() { 
 	// auton sel
 	pros::lcd::register_btn1_cb(on_center_button);
+
+	
 }

@@ -119,17 +119,9 @@ void drivePID(){
 */
 
 
-void driveTest(){
-    pros::Task mizumafu(drivePID);
 
-    resetDrive = true;
-    targetPosition = 500; 
-    targetDegrees = 0;
-    mizumafu.delay(1000);
 
-    // resetDrive = true;
-    // targetDegrees = 90;
-}
+#if 0
 
 /** 
 * AUTO SKILLS
@@ -219,7 +211,6 @@ void FarSide(){
     // mizumafu.suspend();
 }
 
-# if 0
 /** 
 * CLOSE SIDE
 **/
@@ -247,6 +238,12 @@ const int DRIVE_SPEED = 80;
 const int TURN_SPEED = 60;
 const int AUTON_DELAY_TIME = 200;
 
+void driveTest(){
+    resetDriveEncoders();
+    auton_drive(400, DRIVE_SPEED);
+    pros::delay(200);
+}
+
 /*
 Both autons similar.
 At least 3 rings scored of the alliance color on a minimum of two stakes.
@@ -256,7 +253,9 @@ Has not broken any rules.
 */
 
 // Close Side Auton (mirror this)
-void closeSide(){
+void CloseSide(){
+    setLift(2);
+    pros::delay(200);
     // 1. Go out
     auton_drive(-600, DRIVE_SPEED);
     pros::delay(AUTON_DELAY_TIME);
@@ -267,15 +266,15 @@ void closeSide(){
     setLift(3);
     pros::delay(AUTON_DELAY_TIME);
     // 4. Spin
-    setIntake(110);
+    intake.move(110);
     // 5. Turn
-    auton_turn(-65, TURN_SPEED); // Mirrored
+    auton_turn(65, TURN_SPEED); // Mirrored
     pros::delay(AUTON_DELAY_TIME);
     // 6. Drive fwd to get red ring
     auton_drive(240, DRIVE_SPEED); // Changed drive fwd
     pros::delay(AUTON_DELAY_TIME);
     // 7. Turn all the way
-    auton_turn(-170, TURN_SPEED-15);
+    auton_turn(170, TURN_SPEED-15);
     pros::delay(AUTON_DELAY_TIME);
     // 9. Drive FWD to side of middle, ride up
     auton_drive(700, DRIVE_SPEED);
@@ -284,7 +283,9 @@ void closeSide(){
 
 
 // Close Side Auton (Mirrored)
-void closeSideMirrored(){
+void CloseSideMirrored(){
+    setLift(2);
+    pros::delay(200);
     // 1. Go out
     auton_drive(-600, DRIVE_SPEED);
     pros::delay(AUTON_DELAY_TIME);
@@ -295,7 +296,7 @@ void closeSideMirrored(){
     setLift(3);
     pros::delay(AUTON_DELAY_TIME);
     // 4. Spin
-    setIntake(110);
+    intake.move(110);
     // 5. Turn
     auton_turn(-65, TURN_SPEED); // Mirrored
     pros::delay(AUTON_DELAY_TIME);
@@ -310,13 +311,10 @@ void closeSideMirrored(){
     pros::delay(AUTON_DELAY_TIME);
 }
 
-// Far Side Auton
-void farSide(){
-   
-}
-
-// Far Side Auton (Mirrored)
-void farSideMirrored(){
+// Far Side Auton (mirror this)
+void FarSide(){
+   setLift(2);
+    pros::delay(200);
     // 1. Go out
     auton_drive(-600, DRIVE_SPEED);
     pros::delay(AUTON_DELAY_TIME);
@@ -327,7 +325,41 @@ void farSideMirrored(){
     setLift(3);
     pros::delay(AUTON_DELAY_TIME);
     // 4. Spin
-    setIntake(110);
+    intake.move(110);
+    // 5. Turn
+    auton_turn(-60, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // 6. Drive fwd to get red ring
+    auton_drive(240, DRIVE_SPEED); // Changed drive fwd
+    pros::delay(AUTON_DELAY_TIME);
+    // 7. Turn all the way
+    auton_turn(-150, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    /*
+    // 8. Drop the stake
+    clamp_piston1.retract();
+    pros::delay(AUTON_DELAY_TIME);
+     */
+    // 9. Drive FWD to side of middle, ride up
+    auton_drive(700, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+}
+
+// Far Side Auton (Mirrored)
+void FarSideMirrored(){
+    setLift(2);
+    pros::delay(200);
+    // 1. Go out
+    auton_drive(-600, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // 2. Clamp
+    setClamp(clamp);
+    pros::delay(AUTON_DELAY_TIME);
+    // 3. Release intake
+    setLift(3);
+    pros::delay(AUTON_DELAY_TIME);
+    // 4. Spin
+    intake.move(110);
     // 5. Turn
     auton_turn(60, TURN_SPEED);
     pros::delay(AUTON_DELAY_TIME);
@@ -349,25 +381,28 @@ void farSideMirrored(){
 
 // Auton Skills 
 // THE ONE WE ARE USING
-void autonSkills2(){
-    setUpStart();
+void AutonSkills(){
+    resetDriveEncoders();
+    setLift(3);
+    pros::delay(200);
     // Drive bkwd
-    auton_drive(-10, DRIVE_SPEED);
+    auton_drive(-50, DRIVE_SPEED);
     pros::delay(AUTON_DELAY_TIME);
    // 1. Rotate
    auton_turn(90, TURN_SPEED);
    pros::delay(AUTON_DELAY_TIME);
    // 2. Drive bkwd
-   auton_drive(-180, DRIVE_SPEED);
+   auton_drive(-220, DRIVE_SPEED);
+   setClamp(clamp);
    pros::delay(AUTON_DELAY_TIME);
    // 3. Grab stake
-   setClamp(clamp);
+   
    pros::delay(AUTON_DELAY_TIME);
    // Drive fwd slightly
    auton_drive(30, DRIVE_SPEED);
    pros::delay(AUTON_DELAY_TIME);
    // 4. Turn intake on
-   setIntake(100);
+   intake.move(110);
    pros::delay(300);
    // 5. Turn towards ring
    auton_turn(147, TURN_SPEED); // Changed angle to make it larger
@@ -404,9 +439,8 @@ void autonSkills2(){
    setClamp(unclamp);
    pros::delay(AUTON_DELAY_TIME);
    // hang
-   setLift(3);
    pros::delay(AUTON_DELAY_TIME);
-   setIntake(0);
+   intake.move(0);
    pros::delay(AUTON_DELAY_TIME);
    auton_drive(1500, DRIVE_SPEED);
    pros::delay(AUTON_DELAY_TIME);

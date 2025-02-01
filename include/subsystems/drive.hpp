@@ -94,7 +94,7 @@ void resetDriveEncoders();
 /*
 * Gets the avg drive pos
 */
-double avgDriveEncoderValue();
+int avgDriveEncoderValue();
 
 /*
 * Get left position

@@ -136,7 +136,7 @@ void resetDriveEncoders(){
 /*
 * Get the avg drive encoder value
 */
-double avgDriveEncoderValue(){
+int avgDriveEncoderValue(){
     return((left_motor1.get_position() + left_motor2.get_position() + left_motor3.get_position() +
     right_motor1.get_position() + right_motor2.get_position() + right_motor3.get_position())/6);
 }
@@ -201,15 +201,11 @@ void auton_drive(int goal, int speed){
     int direction = abs(goal)/goal;
     // Reset
     resetDriveEncoders();
-    // Reset inertial
-    inertial.set_rotation(0);
     // Drive until goal is reached
-    while(fabs(avgDriveEncoderValue()) < abs(goal)){
-        setDrive(speed*direction - inertial.get_rotation(), speed*direction + inertial.get_rotation()); // Self correcting driving ?
+    while(fabs(left_motor1.get_position()) < abs(goal)){
+        setDrive(speed*direction, speed*direction); 
         pros::delay(10);
     }
-    // Let it settle
-    pros::delay(50); 
     // Short brake
     setDrive(-10*direction, -10*direction);
     // Wait
