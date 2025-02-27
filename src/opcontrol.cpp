@@ -18,7 +18,6 @@ void disabled() {
  */
 
 void SkillsOpControl(){
-	arcadeDrive(); // Arcade Drive
 	lift_funcL1(); // L1/L2 Lift
 	clampPistonArrows(); // Arrows Clamp
 }
@@ -29,7 +28,6 @@ void SkillsOpControl(){
 
 
 void HTHOpControl(){
-	tankDrive(); // Tank Drive
 	lift_funcArrows(); // Arrows Lift
 	clampPistonL1(); // L1/L2 Clamp
 }
@@ -59,12 +57,15 @@ void opcontrol() {
 		// int dir = controller_master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		// int turn = controller_master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		
-		//HTHOpControl(); // HTH
-		SkillsOpControl(); // Skills
+		tankDrive(); // Tank Drive
+		HTHOpControl(); // HTH
+		//SkillsOpControl(); // Skills
 
 		clear_arm(); // Clear arm
 		latch_func(); // Latch
 		IntakeFunction(); // intake
+
+		
 
 		pros::delay(20);                               // Run for 20 ms then update
 	}

@@ -9,8 +9,8 @@ int armState = 2;
 void setClearArm(int armState){
     switch (armState) {
         case 0: // initial press
-            switchBlade1.retract();
-            switchBlade2.extend();
+            switchBlade1.extend();
+            switchBlade2.retract(); // 
             break;
         case 1: // intake off, arm out
             switchBlade1.extend();

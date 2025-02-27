@@ -234,7 +234,7 @@ void CloseSide(){
 * Can change if needed.
 * If the turn is too slow the robot won't turn.
 */
-const int DRIVE_SPEED = 80;
+const int DRIVE_SPEED = 95;
 const int TURN_SPEED = 60;
 const int AUTON_DELAY_TIME = 200;
 
@@ -253,7 +253,9 @@ Has not broken any rules.
 */
 
 // Close Side Auton (mirror this)
-void CloseSide(){
+void PositiveSide(){
+    #if 0
+    setClearArm(2);
     setLift(2);
     pros::delay(200);
     // 1. Go out
@@ -279,11 +281,120 @@ void CloseSide(){
     // 9. Drive FWD to side of middle, ride up
     auton_drive(700, DRIVE_SPEED);
     pros::delay(AUTON_DELAY_TIME);
+    #endif
+    // Far Side
+    setClearArm(2); setLift(1); // Setup 
+    // Begin Straight
+    // Drive bkwd (m: 13in)
+    auton_drive(-460, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Turn towards STAKE (Angle: 13)
+    auton_turn(22, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive backwards so that the robot is in the place of the STAKE (m: 28in)
+    auton_drive(-870, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Clamp
+    setClamp(clamp);
+    pros::delay(AUTON_DELAY_TIME);
+    // Intake ON for preload
+    intake.move(127);
+    pros::delay(AUTON_DELAY_TIME);
+    // Turn so the robot faces the two RINGS (Angle: 65)
+    auton_turn(60, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive forward so that the robot is in place of the RINGS (m: 26in) 920 d
+    auton_drive(785, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME); // WAITING LONGER
+    // Drive backward (Back to where the stake was, so - Whatever amount) (m: )
+    auton_drive(-400, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME + 700); // WAITING LONGER
+    // Drop STAKE
+    // Go back to where were
+    auton_drive(310, DRIVE_SPEED);
+    setClamp(unclamp);
+    pros::delay(AUTON_DELAY_TIME);
+    // Turn towards the MIDDLE STAKE (Angle: 120) (Front)
+    auton_turn(110, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    auton_drive(100, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Stop the intake
+    intake.move(0);
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive forward to the middle stake (m: 7in)
+    pros::delay(AUTON_DELAY_TIME);
+    switchBlade1.extend();
+    switchBlade2.extend();
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive BACKWARD with the MIDDLE STAKE a bit (m: 32)
+    auton_drive(-2000, DRIVE_SPEED + 10);
+    // Turn to MIDDLE BAR (Angle: 70)
+    auton_turn(50, TURN_SPEED);
+    switchBlade1.retract();
+    switchBlade2.retract();
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive FORWARD (let the very side of the robot touch it so no crossing) (m: )
+    auton_drive(2000, DRIVE_SPEED + 10);
+    pros::delay(AUTON_DELAY_TIME);
+    // Done
+   
 }
 
 
+// Far Side Auton (mirror this)
+void NegativeSide(){
+    // Close Side
+    setClearArm(2); setLift(1); // Setup 
+    /*
+    // Begin Straight
+    // Drive bkwd (m: 13in)
+    auton_drive(-460, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Turn towards STAKE (Angle: 13)
+    auton_turn(22, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive backwards so that the robot is in the place of the STAKE (m: 28in)
+    auton_drive(-740, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Clamp
+    setClamp(clamp);
+    pros::delay(AUTON_DELAY_TIME);
+    // Intake ON for preload
+    intake.move(127);
+    pros::delay(AUTON_DELAY_TIME);
+    // Turn so the robot faces the two RINGS (Angle: 110)
+    auton_turn(-100, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive forward so that the robot is in place of the RINGS (m: 26in) 920 d
+    auton_drive(670, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME); // WAITING LONGER
+    // Turn toward middle rings (Angle: )
+    auton_turn(-86, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive FWD (m: )
+    auton_drive(400, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive BKWD to line up with the middle bar (m: )
+    auton_drive(-270, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Then turn so the robot faces the MIDDLE BAR (Angle: )
+    auton_turn(-100, TURN_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    // Drive FORWARD (let the very side of the robot touch it so no crossing) (m: )
+    auton_drive(1000, DRIVE_SPEED);
+    pros::delay(AUTON_DELAY_TIME);
+    intake.move(0);
+    pros::delay(AUTON_DELAY_TIME);
+    // Done
+    */
+    
+}
+
 // Close Side Auton (Mirrored)
-void CloseSideMirrored(){
+void PositiveSideMirrored(){
+    #if 0
+    setClearArm(2);
     setLift(2);
     pros::delay(200);
     // 1. Go out
@@ -309,44 +420,13 @@ void CloseSideMirrored(){
     // 9. Drive FWD to side of middle, ride up
     auton_drive(700, DRIVE_SPEED);
     pros::delay(AUTON_DELAY_TIME);
-}
-
-// Far Side Auton (mirror this)
-void FarSide(){
-   setLift(2);
-    pros::delay(200);
-    // 1. Go out
-    auton_drive(-600, DRIVE_SPEED);
-    pros::delay(AUTON_DELAY_TIME);
-    // 2. Clamp
-    setClamp(clamp);
-    pros::delay(AUTON_DELAY_TIME);
-    // 3. Release intake
-    setLift(3);
-    pros::delay(AUTON_DELAY_TIME);
-    // 4. Spin
-    intake.move(110);
-    // 5. Turn
-    auton_turn(-60, TURN_SPEED);
-    pros::delay(AUTON_DELAY_TIME);
-    // 6. Drive fwd to get red ring
-    auton_drive(240, DRIVE_SPEED); // Changed drive fwd
-    pros::delay(AUTON_DELAY_TIME);
-    // 7. Turn all the way
-    auton_turn(-150, TURN_SPEED);
-    pros::delay(AUTON_DELAY_TIME);
-    /*
-    // 8. Drop the stake
-    clamp_piston1.retract();
-    pros::delay(AUTON_DELAY_TIME);
-     */
-    // 9. Drive FWD to side of middle, ride up
-    auton_drive(700, DRIVE_SPEED);
-    pros::delay(AUTON_DELAY_TIME);
+    #endif
 }
 
 // Far Side Auton (Mirrored)
-void FarSideMirrored(){
+void NegativeSideMirrored(){
+    #if 0
+    setClearArm(2);
     setLift(2);
     pros::delay(200);
     // 1. Go out
@@ -377,12 +457,14 @@ void FarSideMirrored(){
     // 9. Drive FWD to side of middle, ride up
     auton_drive(700, DRIVE_SPEED);
     pros::delay(AUTON_DELAY_TIME);
+    #endif
 }
 
 // Auton Skills 
 // THE ONE WE ARE USING
 void AutonSkills(){
     resetDriveEncoders();
+    setClearArm(2);
     setLift(3);
     pros::delay(200);
     // Drive bkwd

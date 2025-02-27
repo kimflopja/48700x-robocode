@@ -13,22 +13,22 @@
  * from where it left off.
  */
 void autonomous() {
-    SelectedAuton = 0;
+    SelectedAuton = 1;
     switch(SelectedAuton){
         case 0:
             AutonSkills();
             break;
         case 1:
-            FarSide();
+            NegativeSide();
             break;
         case 2:
-            FarSideMirrored();
+            NegativeSideMirrored();
             break;
         case 3:
-            CloseSide();
+            PositiveSide();
             break;
         case 4:
-            CloseSideMirrored();
+            PositiveSideMirrored();
             break;
         case 5:
             driveTest();

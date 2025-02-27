@@ -27,8 +27,8 @@ void setLift(int liftState){
       if(lift.get_position() == 0) lift.brake();
       break;
     case 1: // Wall stake
-      lift.move_absolute(350, LIFT_SPEED); 
-      if(lift.get_position() == 350) lift.brake();
+      lift.move_absolute(330, LIFT_SPEED); 
+      if(lift.get_position() == 330) lift.brake();
       break;
     case 2: // High stake
       lift.move_absolute(600, LIFT_SPEED); 

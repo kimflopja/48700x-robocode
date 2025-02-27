@@ -59,7 +59,9 @@ void initialize() {
 	lift.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
 	// Clear arm
-	setClearArm(2);
+	setClearArm(0);
+	switchBlade1.extend();
+    switchBlade2.retract(); // 
 
 	// Delay
 	pros::delay(100);
